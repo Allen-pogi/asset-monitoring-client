@@ -1,8 +1,9 @@
 // src/components/MainDashboard.jsx
 import React from "react";
+import Header from "../../user/components/header";
 
 const StatCard = ({ title, value, trend, trendColor }) => (
-  <div className="bg-white dark:bg-background-dark rounded-lg p-6 shadow">
+  <div className="bg-white dark:bg-slate-900 rounded-lg p-6 shadow">
     <p className="text-sm font-medium text-black/60 dark:text-white/60">
       {title}
     </p>
@@ -18,6 +19,7 @@ const MainDashboard = () => {
   return (
     <main className="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark text-black dark:text-white">
       {/* Stats Cards */}
+      <Header />
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
         <StatCard
           title="Total Assets"
@@ -44,7 +46,7 @@ const MainDashboard = () => {
         <h2 className="text-xl font-bold mb-4">Inventory Overview</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Stock Levels Bar Chart */}
-          <div className="bg-white dark:bg-background-dark/50 rounded-lg p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg p-6">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-black/60 dark:text-white/60">
@@ -81,7 +83,7 @@ const MainDashboard = () => {
           </div>
 
           {/* Asset Utilization Line Chart */}
-          <div className="bg-white dark:bg-background-dark/50 rounded-lg p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg p-6">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-black/60 dark:text-white/60">
