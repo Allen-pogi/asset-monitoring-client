@@ -1,105 +1,141 @@
-// src/pages/Register.jsx
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Header from "../../user/components/header";
 
-const Register = () => {
+const RegisterAdmin = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setMessage("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/admin/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || "Something went wrong");
+      } else {
+        setMessage("User registered successfully!");
+        // Optionally, redirect to login page or reset form
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+      setMessage("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col">
       {/* Header */}
-      <header className="flex items-center border-b border-background-light/20 dark:border-background-dark/20 px-10 py-3">
-        <div className="flex items-center gap-4 text-slate-800 dark:text-white">
-          <div className="h-6 w-6">
-            <svg
-              className="text-primary"
-              fill="none"
-              viewBox="0 0 48 48"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-          <h2 className="text-lg font-bold">AssetTrack</h2>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="flex flex-1 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md rounded-xl bg-white/20 p-8 shadow-2xl backdrop-blur-sm dark:bg-background-dark/80">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Create your account
+              Create your admin account
             </h2>
             <p className="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
               Already have an account?{" "}
-              <a
+              <Link
+                to="/admin/login"
                 className="font-medium text-primary hover:text-primary/80"
-                href="#"
               >
                 Sign In
-              </a>
+              </Link>
             </p>
           </div>
 
-          <form className="mt-8 space-y-6" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4 rounded-lg">
               <div>
-                <label className="sr-only" htmlFor="username">
-                  Username
-                </label>
                 <input
                   id="username"
                   name="username"
                   type="text"
                   required
                   placeholder="Username"
-                  className="relative block w-full appearance-none rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="relative block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
                 />
               </div>
-
               <div>
-                <label className="sr-only" htmlFor="email-address">
-                  Email address
-                </label>
                 <input
-                  id="email-address"
+                  id="email"
                   name="email"
                   type="email"
-                  autoComplete="email"
                   required
                   placeholder="Email address"
-                  className="relative block w-full appearance-none rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="relative block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
                 />
               </div>
-
               <div>
-                <label className="sr-only" htmlFor="password">
-                  Password
-                </label>
                 <input
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="new-password"
                   required
                   placeholder="Password"
-                  className="relative block w-full appearance-none rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="relative block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
                 />
               </div>
-
               <div>
-                <label className="sr-only" htmlFor="confirm-password">
-                  Confirm Password
-                </label>
                 <input
-                  id="confirm-password"
-                  name="confirm-password"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   type="password"
-                  autoComplete="new-password"
                   required
                   placeholder="Confirm Password"
-                  className="relative block w-full appearance-none rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="relative block w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-3 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
                 />
               </div>
             </div>
@@ -107,11 +143,17 @@ const Register = () => {
             <div>
               <button
                 type="submit"
+                disabled={loading}
                 className="group relative flex w-full justify-center rounded-lg border border-transparent bg-primary py-3 px-4 text-sm font-semibold text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark"
               >
-                Sign Up
+                {loading ? "Signing Up..." : "Sign Up"}
               </button>
             </div>
+            {message && (
+              <p className="text-center text-sm mt-2 text-red-500 dark:text-red-400">
+                {message}
+              </p>
+            )}
           </form>
         </div>
       </main>
@@ -119,4 +161,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterAdmin;
