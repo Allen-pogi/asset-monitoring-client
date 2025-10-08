@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // v6
+import { Link, useNavigate } from "react-router-dom"; // v6
 import Header from "../components/header";
 
 const LoginUser = () => {
@@ -47,11 +47,11 @@ const LoginUser = () => {
         setMessage(data.message || "Invalid credentials");
       } else {
         // Save JWT in localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("userToken", data.token);
+        localStorage.setItem("userInfo", JSON.stringify(data.user));
 
         // Navigate to dashboard or home page
-        navigate("/dashboard");
+        navigate("/scanner");
       }
     } catch (err) {
       console.error(err);
@@ -64,7 +64,7 @@ const LoginUser = () => {
   return (
     <div className="bg-background-light dark:bg-background-dark font-display min-h-screen ifle flex flex-col">
       <Header />
-      <div className=" flex flex-1 items-center justify-center min-h-screen bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+      <div className=" flex flex-1 items-center justify-center  bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
         <div className="w-full max-w-md rounded-xl bg-white/50 p-8 shadow-2xl backdrop-blur-sm dark:bg-background-dark/50">
           <div className="mb-8 text-center">
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -114,6 +114,15 @@ const LoginUser = () => {
               </p>
             )}
           </form>
+          <p className="mt-4 text-center text-sm text-slate-600 dark:text-slate-400">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="font-medium text-primary hover:text-primary/80"
+            >
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
