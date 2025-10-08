@@ -13,6 +13,7 @@ import LandingPage from "./user/pages/homepage";
 import AssetScanner from "./user/pages/scanner";
 import LoginAdmin from "./admin/pages/login";
 import RegisterAdmin from "./admin/pages/register";
+import HybridQRScanner from "./scanner";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/admin/register" element={<RegisterAdmin />} />
+        <Route path="/scanner" element={<HybridQRScanner />} />
         <Route
           path="/scanner"
           element={
