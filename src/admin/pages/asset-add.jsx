@@ -1,5 +1,6 @@
 // src/components/RegisterAsset.jsx
 import React, { useState } from "react";
+import Header from "../components/header";
 
 const RegisterAsset = () => {
   const [assetName, setAssetName] = useState("");
@@ -8,23 +9,60 @@ const RegisterAsset = () => {
   const [serialNumber, setSerialNumber] = useState("");
   const [purchaseDate, setPurchaseDate] = useState("");
   const [generateQR, setGenerateQR] = useState(false);
-
-  const handleSubmit = (e) => {
+  const [classification, setClassification] = useState("");
+  const [issuedDate, setIssuedDate] = useState("");
+  const [issuedTo, setIssuedTo] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle form submission here
+
     const formData = {
       assetName,
+      classification,
       description,
       category,
       serialNumber,
       purchaseDate,
-      generateQR,
+      issuedDate,
+      issuedTo,
     };
-    console.log(formData);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/asset/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Asset saved:", data);
+        // Optionally reset the form
+        setAssetName("");
+        setClassification("");
+        setDescription("");
+        setCategory("");
+        setSerialNumber("");
+        setPurchaseDate("");
+        setIssuedDate("");
+        setIssuedTo("");
+        setGenerateQR(false);
+        alert("Asset registered successfully!");
+      } else {
+        console.error("Error saving asset:", data.message);
+        alert(`Error: ${data.message}`);
+      }
+    } catch (err) {
+      console.error("Network error:", err);
+      alert("Failed to save asset. Please try again.");
+    }
   };
 
   return (
-    <main className="flex-1 p-8 w-full bg-background-light dark:bg-background-dark">
+    <main className="flex-1 w-full bg-background-light dark:bg-background-dark pb-10">
+      <Header />
       <div className="max-w-2xl mx-auto bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800">
         <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
           Register New Asset
@@ -41,8 +79,8 @@ const RegisterAsset = () => {
             <input
               id="asset-name"
               type="text"
-              placeholder='e.g. MacBook Pro 16"'
-              className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
+              placeholder='e.g. "Office Laptop"'
+              className="w-full px-3 py-2 border rounded-lg text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
               value={assetName}
               onChange={(e) => setAssetName(e.target.value)}
             />
@@ -60,7 +98,7 @@ const RegisterAsset = () => {
               id="description"
               rows={4}
               placeholder="Enter a detailed description of the asset"
-              className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
+              className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -77,12 +115,13 @@ const RegisterAsset = () => {
               </label>
               <select
                 id="category"
-                className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Select category</option>
                 <option value="Electronics">Electronics</option>
+                <option value="Office Supplies">Office Supplies</option>
                 <option value="Furniture">Furniture</option>
                 <option value="Vehicles">Vehicles</option>
               </select>
@@ -99,7 +138,7 @@ const RegisterAsset = () => {
                 id="serial-number"
                 type="text"
                 placeholder="Enter serial number"
-                className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
+                className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 text-slate-900 dark:text-white dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
                 value={serialNumber}
                 onChange={(e) => setSerialNumber(e.target.value)}
               />
@@ -117,14 +156,72 @@ const RegisterAsset = () => {
             <input
               id="purchase-date"
               type="date"
-              className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full px-3 py-2 border rounded-lg placeholder-slate-400 dark:placeholder-slate-500 text-slate-900 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               value={purchaseDate}
               onChange={(e) => setPurchaseDate(e.target.value)}
             />
           </div>
 
+          {/* Issued Date */}
+          <div>
+            <label
+              htmlFor="issued-date"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+            >
+              Issued Date
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                id="issued-date"
+                type="date"
+                className="w-full px-3 py-2 border rounded-lg placeholder-slate-400 dark:placeholder-slate-500 text-slate-900 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                value={issuedDate}
+                onChange={(e) => setIssuedDate(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-1 mt-2">
+              <input
+                id="same-as-purchase"
+                type="checkbox"
+                className="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
+                checked={issuedDate === purchaseDate && purchaseDate !== ""}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setIssuedDate(purchaseDate);
+                  } else {
+                    setIssuedDate("");
+                  }
+                }}
+              />
+              <label
+                htmlFor="same-as-purchase"
+                className="text-sm text-slate-700 dark:text-slate-300"
+              >
+                Same as purchase date
+              </label>
+            </div>
+          </div>
+
+          {/* Issued To */}
+          <div>
+            <label
+              htmlFor="issued-to"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+            >
+              Issued To
+            </label>
+            <input
+              id="issued-to"
+              type="text"
+              placeholder="Enter the name or department e.g. 'John Doe' or 'IT Department'"
+              className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-slate-400 dark:placeholder-slate-500"
+              value={issuedTo}
+              onChange={(e) => setIssuedTo(e.target.value)}
+            />
+          </div>
+
           {/* QR Code */}
-          <div className="flex items-center pt-2">
+          {/* <div className="flex items-center pt-2">
             <input
               id="qr-code"
               type="checkbox"
@@ -138,7 +235,7 @@ const RegisterAsset = () => {
             >
               Generate and associate QR code
             </label>
-          </div>
+          </div> */}
 
           {/* Submit Button */}
           <div className="pt-6 flex justify-end">
