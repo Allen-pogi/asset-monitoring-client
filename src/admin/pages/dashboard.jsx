@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../user/components/header";
 
 const StatCard = ({ title, value, trend, trendColor }) => (
-  <div className="bg-white dark:bg-slate-900 rounded-lg p-6 shadow">
+  <div className="bg-white dark:bg-slate-900 rounded-lg p-6 shadow border">
     <p className="text-sm font-medium text-black/60 dark:text-white/60">
       {title}
     </p>
@@ -46,7 +46,7 @@ const MainDashboard = () => {
         <h2 className="text-xl font-bold mb-4">Inventory Overview</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Stock Levels Bar Chart */}
-          <div className="bg-white dark:bg-slate-900 rounded-lg p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg p-6 border">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-black/60 dark:text-white/60">
@@ -83,7 +83,7 @@ const MainDashboard = () => {
           </div>
 
           {/* Asset Utilization Line Chart */}
-          <div className="bg-white dark:bg-slate-900 rounded-lg p-6">
+          <div className="bg-white dark:bg-slate-900 rounded-lg p-6 border">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-black/60 dark:text-white/60">
@@ -149,9 +149,9 @@ const MainDashboard = () => {
       {/* Recent Activity Table */}
       <section className="p-6">
         <h2 className="text-xl font-bold mb-4">Recent Activity</h2>
-        <div className="overflow-x-auto bg-white dark:bg-background-dark/50 rounded-lg">
+        <div className="overflow-x-auto bg-white dark:bg-slate-900 border rounded-lg">
           <table className="w-full text-sm text-left">
-            <thead className="text-xs text-black/60 dark:text-white/60 uppercase bg-background-light dark:bg-background-dark">
+            <thead className="text-xs text-black/60 dark:text-white/60 uppercase bg-background-light dark:bg-slate-900 ">
               <tr>
                 <th className="px-6 py-3">Date</th>
                 <th className="px-6 py-3">Activity</th>
