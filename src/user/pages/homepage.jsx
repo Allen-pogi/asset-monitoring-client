@@ -8,21 +8,27 @@ const LandingPage = () => {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <div className="relative flex min-h-[60vh] md:min-h-[70vh] items-center justify-center text-center">
+        {/* Hero Section */}
+        <div className="relative flex min-h-[60vh] md:min-h-[70vh] items-center justify-center text-center overflow-hidden">
+          {/* Light Mode Background */}
           <div
-            className="absolute inset-0 opacity-60 bg-cover bg-center "
+            className="absolute inset-0 bg-cover bg-center dark:hidden"
             style={{
               backgroundImage:
-                'linear-gradient(to top, rgba(246, 247, 248, 1) 0%, rgba(246, 247, 248, 0) 50%), url("https://png.pngtree.com/thumb_back/fh260/background/20230625/pngtree-factory-scene-3d-rendered-forklift-trucks-image_3680965.jpg")',
+                'linear-gradient(to top, rgba(246,247,248,1) 0%, rgba(246,247,248,0) 40%), url("https://png.pngtree.com/thumb_back/fh260/background/20230625/pngtree-factory-scene-3d-rendered-forklift-trucks-image_3680965.jpg")',
             }}
           ></div>
+
+          {/* Dark Mode Background */}
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center hidden dark:block"
             style={{
               backgroundImage:
-                "linear-gradient(to top, rgba(16, 25, 34, 1) 0%, rgba(16, 25, 34, 0) 50%)",
+                'linear-gradient(to top, rgba(16,25,34,1) 0%, rgba(16,25,34,0) 50%), url("https://png.pngtree.com/thumb_back/fh260/background/20230625/pngtree-factory-scene-3d-rendered-forklift-trucks-image_3680965.jpg")',
             }}
           ></div>
+
+          {/* Content */}
           <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-white">
             <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
               Welcome to PrimeTrack
