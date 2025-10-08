@@ -72,7 +72,7 @@ const RegisterUser = () => {
 
       {/* Main Content */}
       <main className="flex flex-1 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md rounded-xl bg-white/50 p-8 shadow-2xl backdrop-blur-sm dark:bg-background-dark/50">
+        <div className="w-full max-w-md rounded-xl bg-white/20 p-8 shadow-2xl backdrop-blur-sm dark:bg-background-dark/80">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Create your account
