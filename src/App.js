@@ -10,6 +10,9 @@ import TransactionsOffline from "./sample";
 import RegisterUser from "./user/pages/register";
 import LoginUser from "./user/pages/login";
 import LandingPage from "./user/pages/homepage";
+import AssetScanner from "./user/pages/scanner";
+import LoginAdmin from "./admin/pages/login";
+import RegisterAdmin from "./admin/pages/register";
 
 function App() {
   return (
@@ -19,7 +22,16 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<RegisterUser />} />
-
+        <Route path="/admin/login" element={<LoginAdmin />} />
+        <Route path="/admin/register" element={<RegisterAdmin />} />
+        <Route
+          path="/scanner"
+          element={
+            <PrivateRoute>
+              <AssetScanner />
+            </PrivateRoute>
+          }
+        />
         {/* Protected routes */}
         <Route
           path="/dashboard"
@@ -40,7 +52,7 @@ function App() {
         <Route
           path="/assets/add"
           element={
-            <PrivateRoute>
+            <PrivateRoute type="admin">
               <RegisterAsset />
             </PrivateRoute>
           }
