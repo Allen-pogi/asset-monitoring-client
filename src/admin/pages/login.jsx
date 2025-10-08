@@ -68,7 +68,7 @@ const LoginAdmin = () => {
         <div className="w-full max-w-md rounded-xl bg-white/50 p-8 shadow-2xl backdrop-blur-sm dark:bg-background-dark/50">
           <div className="mb-8 text-center">
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-              AssetTrack
+              PrimeTrack
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               Securely log in to your admin account.
