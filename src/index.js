@@ -14,13 +14,21 @@ root.render(
 );
 
 // ✅ Register service worker here
+// if ("serviceWorker" in navigator) {
+//   window.addEventListener("load", () => {
+//     navigator.serviceWorker
+//       .register("/service-worker.js")
+//       .then((reg) => console.log("✅ Service Worker registered:", reg))
+//       .catch((err) =>
+//         console.log("❌ Service Worker registration failed:", err)
+//       );
+//   });
+// }
+
+// 🧹 Also manually unregister any existing service workers
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((reg) => console.log("✅ Service Worker registered:", reg))
-      .catch((err) =>
-        console.log("❌ Service Worker registration failed:", err)
-      );
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((reg) => reg.unregister());
+    console.log("🧹 All service workers unregistered for this app");
   });
 }
