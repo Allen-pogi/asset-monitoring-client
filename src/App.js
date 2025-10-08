@@ -9,13 +9,14 @@ import RegisterAsset from "./admin/pages/asset-add";
 import TransactionsOffline from "./sample";
 import RegisterUser from "./user/pages/register";
 import LoginUser from "./user/pages/login";
+import LandingPage from "./user/pages/homepage";
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Public routes */}
-        <Route path="/" element={<div>Home Page</div>} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<RegisterUser />} />
 
