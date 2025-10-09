@@ -3,37 +3,59 @@ import React, { useState, useEffect, useRef } from "react";
 import { QrReader } from "react-qr-reader";
 
 const HybridQRScanner = () => {
-  const [scannedData, setScannedData] = useState(null); // raw scanned QR data
-  const [assetDetails, setAssetDetails] = useState(null); // full asset details from DB
+  const [scannedData, setScannedData] = useState(null);
+  const [assetDetails, setAssetDetails] = useState(null);
+  const [editableStatus, setEditableStatus] = useState("");
   const [useCamera, setUseCamera] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(null);
 
-  // Focus hardware scanner input on mount
+  // Auto-focus hardware scanner input
   useEffect(() => {
-    if (!useCamera && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [useCamera]);
+    if (!useCamera && inputRef.current) inputRef.current.focus();
+  }, [useCamera, scannedData]);
 
-  // Fetch asset details from backend
+  // Fetch asset details
   const fetchAssetDetails = async (serialNumber, category) => {
     try {
-      // Pass category as query parameter, for example
       const res = await fetch(
         `http://localhost:5000/api/asset/get/${serialNumber}?category=${category}`
       );
+      if (!res.ok) throw new Error("Asset not found");
 
-      if (!res.ok) throw new Error("Failed to fetch asset details");
       const data = await res.json();
-
-      // Ensure category from QR is kept if backend doesn't return it
-      setAssetDetails({ ...data, category: data.category || category });
+      setAssetDetails(data);
+      setEditableStatus(data.status || "Good Condition");
       setShowModal(true);
     } catch (err) {
-      console.error("Error fetching asset:", err);
+      console.error(err);
       setAssetDetails({ error: "Asset not found or server error" });
       setShowModal(true);
+    }
+  };
+
+  // Update status
+  const updateStatus = async () => {
+    if (!assetDetails) return;
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/asset/update/${assetDetails.serialNumber}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: editableStatus }),
+        }
+      );
+      if (!res.ok) throw new Error("Failed to update status");
+
+      setAssetDetails((prev) => ({ ...prev, status: editableStatus }));
+      setShowModal(false); // close modal
+      setScannedData(null); // ready for next scan
+      if (!useCamera && inputRef.current) inputRef.current.focus();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update status");
     }
   };
 
@@ -41,18 +63,17 @@ const HybridQRScanner = () => {
   const handleInput = (e) => {
     if (e.key === "Enter") {
       const data = e.target.value.trim();
-      e.target.value = ""; // clear input
+      e.target.value = "";
       if (!data) return;
 
       try {
         const parsed = JSON.parse(data);
         setScannedData(parsed);
-        console.log("QR Parsed (hardware):", parsed);
         fetchAssetDetails(parsed.serialNumber, parsed.category);
       } catch (err) {
-        console.error("Invalid QR data (hardware):", err, "Raw input:", data);
-        setScannedData({ error: "Invalid QR Code" });
-        setAssetDetails(null);
+        console.error("Invalid QR data:", err);
+        setAssetDetails({ error: "Invalid QR Code" });
+        setShowModal(true);
       }
     }
   };
@@ -64,12 +85,11 @@ const HybridQRScanner = () => {
       try {
         const parsed = JSON.parse(text);
         setScannedData(parsed);
-        console.log("QR Parsed (camera):", parsed);
         fetchAssetDetails(parsed.serialNumber, parsed.category);
       } catch (err) {
-        console.error("Invalid QR data (camera):", err, "Raw input:", text);
-        setScannedData({ error: "Invalid QR Code" });
-        setAssetDetails(null);
+        console.error("Invalid QR data (camera):", err);
+        setAssetDetails({ error: "Invalid QR Code" });
+        setShowModal(true);
       }
     }
     if (error) console.warn("Camera error:", error);
@@ -81,7 +101,6 @@ const HybridQRScanner = () => {
         Hybrid QR Scanner
       </h1>
 
-      {/* Toggle camera */}
       <button
         className="mb-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary/90"
         onClick={() => setUseCamera(!useCamera)}
@@ -89,7 +108,6 @@ const HybridQRScanner = () => {
         {useCamera ? "Use Hardware Scanner" : "Use Camera"}
       </button>
 
-      {/* Camera Scanner */}
       {useCamera && (
         <div className="w-full max-w-sm">
           <QrReader
@@ -101,7 +119,6 @@ const HybridQRScanner = () => {
         </div>
       )}
 
-      {/* Hardware Scanner Input */}
       {!useCamera && (
         <input
           ref={inputRef}
@@ -111,7 +128,6 @@ const HybridQRScanner = () => {
         />
       )}
 
-      {/* Modal for asset details */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg max-w-lg w-full relative">
@@ -151,11 +167,30 @@ const HybridQRScanner = () => {
                 <li>
                   <strong>Issued Date:</strong> {assetDetails.issuedDate}
                 </li>
-                {/* <li>
-                  <strong>Status:</strong> {assetDetails.status}
-                </li> */}
-                {/* Add any other fields you have */}
+                <li>
+                  <strong>Status:</strong>
+                  <select
+                    value={editableStatus}
+                    onChange={(e) => setEditableStatus(e.target.value)}
+                    className="ml-2 px-2 py-1 border rounded bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600"
+                  >
+                    <option value="Good Condition">Good Condition</option>
+                    <option value="Under Maintenance">Under Maintenance</option>
+                    <option value="For Disposal">For Disposal</option>
+                  </select>
+                </li>
               </ul>
+            )}
+
+            {!assetDetails?.error && (
+              <div className="mt-4 flex justify-end">
+                <button
+                  className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90"
+                  onClick={updateStatus}
+                >
+                  Save
+                </button>
+              </div>
             )}
           </div>
         </div>
