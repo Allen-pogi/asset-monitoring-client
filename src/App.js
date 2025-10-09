@@ -15,10 +15,12 @@ import LoginAdmin from "./admin/pages/login";
 import RegisterAdmin from "./admin/pages/register";
 import HybridQRScanner from "./scanner";
 import CameraTest from "./cameraTest";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <Router>
+      <Toaster position="top-right" /> {/* Add this once, globally */}
       <Routes>
         {/* Public routes */}
         <Route path="/cam" element={<CameraTest />} />
