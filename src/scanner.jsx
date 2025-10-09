@@ -159,7 +159,7 @@ const HybridQRScanner = () => {
           <div
             id="camera-container"
             ref={cameraRef}
-            className="w-full max-w-sm justify-center flex rounded-lg overflow-hidden"
+            className="w-full max-w-sm h-64"
           />
         )}
 
