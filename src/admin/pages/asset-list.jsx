@@ -67,6 +67,9 @@ const AssetsDashboard = () => {
             <thead className="bg-black/5 dark:bg-white/5">
               <tr>
                 <th className="px-6 py-3 font-semibold text-black dark:text-white">
+                  Serial Number
+                </th>
+                <th className="px-6 py-3 font-semibold text-black dark:text-white">
                   Asset Name
                 </th>
 
@@ -76,9 +79,7 @@ const AssetsDashboard = () => {
                 <th className="px-6 py-3 font-semibold text-black dark:text-white">
                   Category
                 </th>
-                <th className="px-6 py-3 font-semibold text-black dark:text-white">
-                  Serial Number
-                </th>
+
                 <th className="px-6 py-3 font-semibold text-black dark:text-white">
                   Purchase Date
                 </th>
@@ -102,6 +103,9 @@ const AssetsDashboard = () => {
                   key={asset._id}
                   className="hover:bg-slate-50 dark:hover:bg-slate-900"
                 >
+                  <td className="px-6 py-3 text-black/70 dark:text-white/70">
+                    {asset.serialNumber || "-"}
+                  </td>
                   <td className="px-6 py-3 text-black dark:text-white font-medium">
                     {asset.assetName}
                   </td>
@@ -112,9 +116,7 @@ const AssetsDashboard = () => {
                   <td className="px-6 py-3 text-black/70 dark:text-white/70">
                     {asset.category || "-"}
                   </td>
-                  <td className="px-6 py-3 text-black/70 dark:text-white/70">
-                    {asset.serialNumber || "-"}
-                  </td>
+
                   <td className="px-6 py-3 text-black/70 dark:text-white/70">
                     {asset.purchaseDate
                       ? new Date(asset.purchaseDate).toLocaleDateString("en-PH")
