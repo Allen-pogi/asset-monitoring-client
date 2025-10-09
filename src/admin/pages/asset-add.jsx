@@ -12,6 +12,8 @@ const RegisterAsset = () => {
   const [classification, setClassification] = useState("");
   const [issuedDate, setIssuedDate] = useState("");
   const [issuedTo, setIssuedTo] = useState("");
+  const [status, setStatus] = useState(""); // new state
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,6 +26,7 @@ const RegisterAsset = () => {
       purchaseDate,
       issuedDate,
       issuedTo,
+      status, // add this
     };
 
     try {
@@ -218,6 +221,27 @@ const RegisterAsset = () => {
               value={issuedTo}
               onChange={(e) => setIssuedTo(e.target.value)}
             />
+          </div>
+
+          {/* Status */}
+          <div>
+            <label
+              htmlFor="status"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+            >
+              Status
+            </label>
+            <select
+              id="status"
+              className="w-full px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="">Select status</option>
+              <option value="Good Condition">Good Condition</option>
+              <option value="For Maintenance">For Maintenance</option>
+              <option value="For Disposal">For Disposal</option>
+            </select>
           </div>
 
           {/* QR Code */}
