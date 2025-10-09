@@ -1,21 +1,24 @@
 // src/components/HybridQRScanner.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { QrReader } from "react-qr-reader";
+import { Html5Qrcode } from "html5-qrcode";
 
 const HybridQRScanner = () => {
-  const [scannedData, setScannedData] = useState(null);
   const [assetDetails, setAssetDetails] = useState(null);
   const [editableStatus, setEditableStatus] = useState("");
-  const [useCamera, setUseCamera] = useState(false);
+  const [scannerType, setScannerType] = useState("hardware"); // "hardware" or "camera"
   const [showModal, setShowModal] = useState(false);
-  const inputRef = useRef(null);
 
-  // Auto-focus hardware scanner input
+  const cameraRef = useRef(null);
+  const hardwareInputRef = useRef(null);
+  const html5QrCodeRef = useRef(null);
+
+  // Focus hardware input
   useEffect(() => {
-    if (!useCamera && inputRef.current) inputRef.current.focus();
-  }, [useCamera, scannedData]);
+    if (scannerType === "hardware" && hardwareInputRef.current) {
+      hardwareInputRef.current.focus();
+    }
+  }, [scannerType, assetDetails, showModal]);
 
-  // Fetch asset details
   const fetchAssetDetails = async (serialNumber, category) => {
     try {
       const res = await fetch(
@@ -34,10 +37,8 @@ const HybridQRScanner = () => {
     }
   };
 
-  // Update status
   const updateStatus = async () => {
     if (!assetDetails) return;
-
     try {
       const res = await fetch(
         `http://localhost:5000/api/asset/update/${assetDetails.serialNumber}`,
@@ -50,16 +51,19 @@ const HybridQRScanner = () => {
       if (!res.ok) throw new Error("Failed to update status");
 
       setAssetDetails((prev) => ({ ...prev, status: editableStatus }));
-      setShowModal(false); // close modal
-      setScannedData(null); // ready for next scan
-      if (!useCamera && inputRef.current) inputRef.current.focus();
+      setShowModal(false);
+
+      // Restart scanner if camera
+      if (scannerType === "camera" && html5QrCodeRef.current) {
+        startCameraScanner();
+      }
     } catch (err) {
       console.error(err);
       alert("Failed to update status");
     }
   };
 
-  // Handle hardware scanner input
+  // Hardware scanner input handler
   const handleInput = (e) => {
     if (e.key === "Enter") {
       const data = e.target.value.trim();
@@ -68,62 +72,85 @@ const HybridQRScanner = () => {
 
       try {
         const parsed = JSON.parse(data);
-        setScannedData(parsed);
         fetchAssetDetails(parsed.serialNumber, parsed.category);
       } catch (err) {
-        console.error("Invalid QR data:", err);
+        console.error("Invalid QR data (hardware):", err);
         setAssetDetails({ error: "Invalid QR Code" });
         setShowModal(true);
       }
     }
   };
 
-  // Handle camera scan
-  const handleCameraScan = (result, error) => {
-    if (!!result) {
-      const text = result?.text || result;
-      try {
-        const parsed = JSON.parse(text);
-        setScannedData(parsed);
-        fetchAssetDetails(parsed.serialNumber, parsed.category);
-      } catch (err) {
-        console.error("Invalid QR data (camera):", err);
-        setAssetDetails({ error: "Invalid QR Code" });
-        setShowModal(true);
-      }
+  // Camera scanner
+  const startCameraScanner = () => {
+    if (!cameraRef.current) return;
+
+    // Stop previous scanner if exists
+    if (html5QrCodeRef.current) {
+      html5QrCodeRef.current.stop().catch(() => {});
     }
-    if (error) console.warn("Camera error:", error);
+
+    const html5QrCode = new Html5Qrcode("camera-container");
+    html5QrCodeRef.current = html5QrCode;
+
+    html5QrCode
+      .start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        (decodedText) => {
+          try {
+            const parsed = JSON.parse(decodedText);
+            fetchAssetDetails(parsed.serialNumber, parsed.category);
+            html5QrCode.stop();
+          } catch (err) {
+            console.error("Invalid QR:", err);
+          }
+        }
+      )
+      .catch((err) => console.error("QR start failed:", err));
   };
+
+  // Switch scanner
+  useEffect(() => {
+    if (scannerType === "camera") {
+      startCameraScanner();
+    } else if (scannerType === "hardware") {
+      // stop camera if switching back
+      if (html5QrCodeRef.current) html5QrCodeRef.current.stop().catch(() => {});
+    }
+  }, [scannerType]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-background-light dark:bg-background-dark p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background-light dark:bg-background-dark">
       <h1 className="text-2xl font-bold text-black dark:text-white mb-4">
         Hybrid QR Scanner
       </h1>
 
-      <button
-        className="mb-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary/90"
-        onClick={() => setUseCamera(!useCamera)}
-      >
-        {useCamera ? "Use Hardware Scanner" : "Use Camera"}
-      </button>
+      <div className="mb-4">
+        <label className="mr-2 text-black dark:text-white">Scanner Type:</label>
+        <select
+          value={scannerType}
+          onChange={(e) => setScannerType(e.target.value)}
+          className="px-2 py-1 border rounded"
+        >
+          <option value="hardware">Hardware Scanner</option>
+          <option value="camera">Camera Scanner</option>
+        </select>
+      </div>
 
-      {useCamera && (
-        <div className="w-full max-w-sm">
-          <QrReader
-            onResult={handleCameraScan}
-            constraints={{ facingMode: "environment" }}
-            containerStyle={{ width: "100%" }}
-            videoStyle={{ width: "100%" }}
-          />
-        </div>
+      {scannerType === "camera" && (
+        <div
+          id="camera-container"
+          ref={cameraRef}
+          className="w-full max-w-sm h-64"
+        />
       )}
 
-      {!useCamera && (
+      {scannerType === "hardware" && (
         <input
-          ref={inputRef}
+          ref={hardwareInputRef}
           onKeyDown={handleInput}
-          className="border border-slate-300 dark:border-slate-600 rounded p-2 mb-4 w-0 h-0 opacity-0"
+          className="w-0 h-0 opacity-0"
           autoFocus
         />
       )}
