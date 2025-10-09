@@ -1,6 +1,7 @@
 // src/components/HybridQRScanner.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
+import toast from "react-hot-toast";
 
 const HybridQRScanner = () => {
   const [assetDetails, setAssetDetails] = useState(null);
@@ -39,6 +40,7 @@ const HybridQRScanner = () => {
 
   const updateStatus = async () => {
     if (!assetDetails) return;
+
     try {
       const res = await fetch(
         `http://localhost:5000/api/asset/update/${assetDetails.serialNumber}`,
@@ -48,18 +50,20 @@ const HybridQRScanner = () => {
           body: JSON.stringify({ status: editableStatus }),
         }
       );
+
       if (!res.ok) throw new Error("Failed to update status");
 
       setAssetDetails((prev) => ({ ...prev, status: editableStatus }));
+
       setShowModal(false);
 
-      // Restart scanner if camera
-      if (scannerType === "camera" && html5QrCodeRef.current) {
-        startCameraScanner();
-      }
+      if (scannerType === "camera") startCameraScanner();
+
+      // ✅ Show success toast
+      toast.success("Asset status updated successfully!");
     } catch (err) {
       console.error(err);
-      alert("Failed to update status");
+      toast.error("Failed to update asset status");
     }
   };
 
@@ -82,12 +86,15 @@ const HybridQRScanner = () => {
   };
 
   // Camera scanner
-  const startCameraScanner = () => {
+  const startCameraScanner = async () => {
     if (!cameraRef.current) return;
 
     // Stop previous scanner if exists
     if (html5QrCodeRef.current) {
-      html5QrCodeRef.current.stop().catch(() => {});
+      try {
+        await html5QrCodeRef.current.stop();
+      } catch {}
+      html5QrCodeRef.current.clear(); // free camera
     }
 
     const html5QrCode = new Html5Qrcode("camera-container");
@@ -101,7 +108,7 @@ const HybridQRScanner = () => {
           try {
             const parsed = JSON.parse(decodedText);
             fetchAssetDetails(parsed.serialNumber, parsed.category);
-            html5QrCode.stop();
+            html5QrCode.stop(); // stop after scan
           } catch (err) {
             console.error("Invalid QR:", err);
           }
@@ -189,10 +196,20 @@ const HybridQRScanner = () => {
                   <strong>Description:</strong> {assetDetails.description}
                 </li>
                 <li>
-                  <strong>Purchase Date:</strong> {assetDetails.purchaseDate}
+                  <strong>Purchase Date:</strong>{" "}
+                  {assetDetails?.purchaseDate
+                    ? new Date(assetDetails.purchaseDate).toLocaleDateString(
+                        "en-PH"
+                      )
+                    : "N/A"}
                 </li>
                 <li>
-                  <strong>Issued Date:</strong> {assetDetails.issuedDate}
+                  <strong>Issued Date:</strong>{" "}
+                  {assetDetails?.purchaseDate
+                    ? new Date(assetDetails.issuedDate).toLocaleDateString(
+                        "en-PH"
+                      )
+                    : "N/A"}
                 </li>
                 <li>
                   <strong>Status:</strong>
@@ -202,7 +219,7 @@ const HybridQRScanner = () => {
                     className="ml-2 px-2 py-1 border rounded bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600"
                   >
                     <option value="Good Condition">Good Condition</option>
-                    <option value="Under Maintenance">Under Maintenance</option>
+                    <option value="For Maintenance">For Maintenance</option>
                     <option value="For Disposal">For Disposal</option>
                   </select>
                 </li>
