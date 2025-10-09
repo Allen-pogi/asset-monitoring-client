@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 #camera-container video {
-  width: 60% !important;
-  height: 200px !important; /* Adjust to your desired height */
+  width: 100% !important;
+  height: 250px !important; /* Adjust to your desired height */
   border-radius: 0.5rem;
 }
