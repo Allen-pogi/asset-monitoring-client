@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import toast from "react-hot-toast";
 import Header from "./user/components/header";
+import API_BASE_URL from "./API";
 
 const HybridQRScanner = () => {
   const [assetDetails, setAssetDetails] = useState(null);
@@ -24,7 +25,13 @@ const HybridQRScanner = () => {
   const fetchAssetDetails = async (serialNumber, category) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/asset/get/${serialNumber}?category=${category}`
+        `${API_BASE_URL}/api/asset/get/${serialNumber}?category=${category}`,
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+            "Content-Type": "application/json",
+          },
+        }
       );
       if (!res.ok) throw new Error("Asset not found");
 
@@ -44,7 +51,7 @@ const HybridQRScanner = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/asset/update/${assetDetails.serialNumber}`,
+        `${API_BASE_URL}/api/asset/update/${assetDetails.serialNumber}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

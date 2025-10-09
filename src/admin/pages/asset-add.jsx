@@ -1,6 +1,7 @@
 // src/components/RegisterAsset.jsx
 import React, { useState } from "react";
 import Header from "../components/header";
+import API_BASE_URL from "../../API";
 
 const RegisterAsset = () => {
   const [assetName, setAssetName] = useState("");
@@ -30,7 +31,7 @@ const RegisterAsset = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/asset/register", {
+      const response = await fetch(`${API_BASE_URL}/api/asset/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"; // v6
 import Header from "../components/header";
+import API_BASE_URL from "../../API";
 
 const LoginUser = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const LoginUser = () => {
     setMessage("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/user/login", {
+      const response = await fetch(`${API_BASE_URL}/api/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

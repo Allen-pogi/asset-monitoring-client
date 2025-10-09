@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Link } from "react-router-dom";
 import Header from "../components/header";
+import API_BASE_URL from "../../API";
 
 const AssetsDashboard = () => {
   const [assets, setAssets] = useState([]);
@@ -12,7 +13,12 @@ const AssetsDashboard = () => {
   useEffect(() => {
     const fetchAssets = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/asset/get/all");
+        const res = await fetch(`${API_BASE_URL}/api/asset/get/all`, {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
         setAssets(data);
         setLoading(false);
