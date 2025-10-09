@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#camera-container video {
+  width: 60% !important;
+  height: 200px !important; /* Adjust to your desired height */
+  border-radius: 0.5rem;
+}

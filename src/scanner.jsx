@@ -144,16 +144,14 @@ const HybridQRScanner = () => {
         </h1>
 
         <div className="mb-4">
-          <label className="mr-2 text-black dark:text-white">
-            Scanner Type:
-          </label>
+          <label className="mr-2 text-black dark:text-white">Type:</label>
           <select
             value={scannerType}
             onChange={(e) => setScannerType(e.target.value)}
             className="px-2 py-1 border rounded"
           >
-            <option value="hardware">Hardware Scanner</option>
-            <option value="camera">Camera Scanner</option>
+            <option value="hardware"> Scanner</option>
+            <option value="camera">Camera </option>
           </select>
         </div>
 
@@ -161,7 +159,7 @@ const HybridQRScanner = () => {
           <div
             id="camera-container"
             ref={cameraRef}
-            className="w-full max-w-sm h-64"
+            className="w-full max-w-sm justify-center flex rounded-lg overflow-hidden"
           />
         )}
 
