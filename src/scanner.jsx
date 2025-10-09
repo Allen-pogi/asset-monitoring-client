@@ -54,7 +54,11 @@ const HybridQRScanner = () => {
         `${API_BASE_URL}/api/asset/update/${assetDetails.serialNumber}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
           body: JSON.stringify({ status: editableStatus }),
         }
       );
@@ -109,19 +113,15 @@ const HybridQRScanner = () => {
     html5QrCodeRef.current = html5QrCode;
 
     html5QrCode
-      .start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 250 } },
-        (decodedText) => {
-          try {
-            const parsed = JSON.parse(decodedText);
-            fetchAssetDetails(parsed.serialNumber, parsed.category);
-            html5QrCode.stop(); // stop after scan
-          } catch (err) {
-            console.error("Invalid QR:", err);
-          }
+      .start({ facingMode: "environment" }, { fps: 10 }, (decodedText) => {
+        try {
+          const parsed = JSON.parse(decodedText);
+          fetchAssetDetails(parsed.serialNumber, parsed.category);
+          html5QrCode.stop(); // stop after scan
+        } catch (err) {
+          console.error("Invalid QR:", err);
         }
-      )
+      })
       .catch((err) => console.error("QR start failed:", err));
   };
 
