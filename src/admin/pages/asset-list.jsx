@@ -89,6 +89,9 @@ const AssetsDashboard = () => {
                   Issued To
                 </th>
                 <th className="px-6 py-3 font-semibold text-black dark:text-white">
+                  Status
+                </th>
+                <th className="px-6 py-3 font-semibold text-black dark:text-white">
                   QR Code
                 </th>
               </tr>
@@ -125,6 +128,9 @@ const AssetsDashboard = () => {
 
                   <td className="px-6 py-3 text-black/70 dark:text-white/70">
                     {asset.issuedTo || "-"}
+                  </td>
+                  <td className="px-6 py-3 text-black/70 dark:text-white/70">
+                    {asset.status || "-"}
                   </td>
                   <td className="px-6 py-3">
                     {asset.serialNumber ? (
