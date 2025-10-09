@@ -14,12 +14,14 @@ import AssetScanner from "./user/pages/scanner";
 import LoginAdmin from "./admin/pages/login";
 import RegisterAdmin from "./admin/pages/register";
 import HybridQRScanner from "./scanner";
+import CameraTest from "./cameraTest";
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Public routes */}
+        <Route path="/cam" element={<CameraTest />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<RegisterUser />} />
