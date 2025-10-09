@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import toast from "react-hot-toast";
+import Header from "./user/components/header";
 
 const HybridQRScanner = () => {
   const [assetDetails, setAssetDetails] = useState(null);
@@ -128,117 +129,122 @@ const HybridQRScanner = () => {
   }, [scannerType]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background-light dark:bg-background-dark">
-      <h1 className="text-2xl font-bold text-black dark:text-white mb-4">
-        Hybrid QR Scanner
-      </h1>
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
+      <Header />
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background-light dark:bg-background-dark">
+        <h1 className="text-2xl font-bold text-black dark:text-white mb-4">
+          Hybrid QR Scanner
+        </h1>
 
-      <div className="mb-4">
-        <label className="mr-2 text-black dark:text-white">Scanner Type:</label>
-        <select
-          value={scannerType}
-          onChange={(e) => setScannerType(e.target.value)}
-          className="px-2 py-1 border rounded"
-        >
-          <option value="hardware">Hardware Scanner</option>
-          <option value="camera">Camera Scanner</option>
-        </select>
-      </div>
-
-      {scannerType === "camera" && (
-        <div
-          id="camera-container"
-          ref={cameraRef}
-          className="w-full max-w-sm h-64"
-        />
-      )}
-
-      {scannerType === "hardware" && (
-        <input
-          ref={hardwareInputRef}
-          onKeyDown={handleInput}
-          className="w-0 h-0 opacity-0"
-          autoFocus
-        />
-      )}
-
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg max-w-lg w-full relative">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:hover:text-white"
-              onClick={() => setShowModal(false)}
-            >
-              ✕
-            </button>
-
-            <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">
-              {assetDetails?.error ? "Error" : "Asset Details"}
-            </h2>
-
-            {assetDetails?.error ? (
-              <p className="text-red-500">{assetDetails.error}</p>
-            ) : (
-              <ul className="space-y-2 text-black dark:text-white text-sm">
-                <li>
-                  <strong>Serial Number:</strong> {assetDetails.serialNumber}
-                </li>
-                <li>
-                  <strong>Asset Name:</strong> {assetDetails.assetName}
-                </li>
-                <li>
-                  <strong>Category:</strong> {assetDetails.category}
-                </li>
-                <li>
-                  <strong>Issued to:</strong> {assetDetails.issuedTo}
-                </li>
-                <li>
-                  <strong>Description:</strong> {assetDetails.description}
-                </li>
-                <li>
-                  <strong>Purchase Date:</strong>{" "}
-                  {assetDetails?.purchaseDate
-                    ? new Date(assetDetails.purchaseDate).toLocaleDateString(
-                        "en-PH"
-                      )
-                    : "N/A"}
-                </li>
-                <li>
-                  <strong>Issued Date:</strong>{" "}
-                  {assetDetails?.purchaseDate
-                    ? new Date(assetDetails.issuedDate).toLocaleDateString(
-                        "en-PH"
-                      )
-                    : "N/A"}
-                </li>
-                <li>
-                  <strong>Status:</strong>
-                  <select
-                    value={editableStatus}
-                    onChange={(e) => setEditableStatus(e.target.value)}
-                    className="ml-2 px-2 py-1 border rounded bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600"
-                  >
-                    <option value="Good Condition">Good Condition</option>
-                    <option value="For Maintenance">For Maintenance</option>
-                    <option value="For Disposal">For Disposal</option>
-                  </select>
-                </li>
-              </ul>
-            )}
-
-            {!assetDetails?.error && (
-              <div className="mt-4 flex justify-end">
-                <button
-                  className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90"
-                  onClick={updateStatus}
-                >
-                  Save
-                </button>
-              </div>
-            )}
-          </div>
+        <div className="mb-4">
+          <label className="mr-2 text-black dark:text-white">
+            Scanner Type:
+          </label>
+          <select
+            value={scannerType}
+            onChange={(e) => setScannerType(e.target.value)}
+            className="px-2 py-1 border rounded"
+          >
+            <option value="hardware">Hardware Scanner</option>
+            <option value="camera">Camera Scanner</option>
+          </select>
         </div>
-      )}
+
+        {scannerType === "camera" && (
+          <div
+            id="camera-container"
+            ref={cameraRef}
+            className="w-full max-w-sm h-64"
+          />
+        )}
+
+        {scannerType === "hardware" && (
+          <input
+            ref={hardwareInputRef}
+            onKeyDown={handleInput}
+            className="w-0 h-0 opacity-0"
+            autoFocus
+          />
+        )}
+
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg max-w-lg w-full relative">
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:hover:text-white"
+                onClick={() => setShowModal(false)}
+              >
+                ✕
+              </button>
+
+              <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">
+                {assetDetails?.error ? "Error" : "Asset Details"}
+              </h2>
+
+              {assetDetails?.error ? (
+                <p className="text-red-500">{assetDetails.error}</p>
+              ) : (
+                <ul className="space-y-2 text-black dark:text-white text-sm">
+                  <li>
+                    <strong>Serial Number:</strong> {assetDetails.serialNumber}
+                  </li>
+                  <li>
+                    <strong>Asset Name:</strong> {assetDetails.assetName}
+                  </li>
+                  <li>
+                    <strong>Category:</strong> {assetDetails.category}
+                  </li>
+                  <li>
+                    <strong>Issued to:</strong> {assetDetails.issuedTo}
+                  </li>
+                  <li>
+                    <strong>Description:</strong> {assetDetails.description}
+                  </li>
+                  <li>
+                    <strong>Purchase Date:</strong>{" "}
+                    {assetDetails?.purchaseDate
+                      ? new Date(assetDetails.purchaseDate).toLocaleDateString(
+                          "en-PH"
+                        )
+                      : "N/A"}
+                  </li>
+                  <li>
+                    <strong>Issued Date:</strong>{" "}
+                    {assetDetails?.purchaseDate
+                      ? new Date(assetDetails.issuedDate).toLocaleDateString(
+                          "en-PH"
+                        )
+                      : "N/A"}
+                  </li>
+                  <li>
+                    <strong>Status:</strong>
+                    <select
+                      value={editableStatus}
+                      onChange={(e) => setEditableStatus(e.target.value)}
+                      className="ml-2 px-2 py-1 border rounded bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600"
+                    >
+                      <option value="Good Condition">Good Condition</option>
+                      <option value="For Maintenance">For Maintenance</option>
+                      <option value="For Disposal">For Disposal</option>
+                    </select>
+                  </li>
+                </ul>
+              )}
+
+              {!assetDetails?.error && (
+                <div className="mt-4 flex justify-end">
+                  <button
+                    className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90"
+                    onClick={updateStatus}
+                  >
+                    Save
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
