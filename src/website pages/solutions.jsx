@@ -78,13 +78,13 @@ const OurSolutions = () => {
               desc: "Boost productivity and precision with our cutting-edge automated systems and robotics.",
             },
             {
-              title: "Fleet Management",
-              img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDIq4SxFef_7j1m2BIcBqDi57V5SHj5OqOfE8dGaW0zd-2n9Mo766xqtkjdo6c1bZPYqbAsy-5Uexh_Mr76kLhjdDfMrMnmj2oSX4qinwzsS88QP09b60dG8gNsg5EkvhrOnZ4eMvPxsWwOq7HqnkeTqwHw2iApXFo-wVCm-8rlV4ZDfioQd4XJJbiyKjMY_IVewm9R8ReUmhNrNCqs8EJEshCpE738BHExptD7iSKQ5hd0YUUcE0KJ660C-NVzr69ZUHbGXgpUCGU",
+              title: "Structural Insulated Panel",
+              img: "https://tsscgroup.com/wp-content/uploads/2023/05/cold-storage.jpg",
               desc: "Intelligent software to monitor, manage, and optimize your entire fleet of equipment.",
             },
             {
-              title: "Safety Systems",
-              img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDgbto2UKpLEmAoL8h_ku3Rrnpowlpsp1uBdBn9DF-3wrC0zXM5oSKL0nNN5PwBaBhabn9Sw0luFkYHvlexqfwVrovPgy7FSKehUT4dd8dzwIQrZVjw9tXnKW3ZSTrRrlwqQj0QiPNReVVW4hxOxiNhN5MDxtvbAozvMawtrW7R8tB4MZ6JWPTOe6gMqsfVJ8gXe4EGwtXtZhetCdxWeSQShPBeZuXIU83wNkt3cBPCbwRG6FpWsBQ9T2e7fvvSP5kgM8osKwbzq00",
+              title: "Panel and Door Accessories",
+              img: "https://image.made-in-china.com/202f0j00RWMoTsEKbUqA/Vertical-Lifting-up-Industrial-Overhead-Panel-Door.webp",
               desc: "Ensure a secure working environment with our comprehensive safety systems and training.",
             },
             {
