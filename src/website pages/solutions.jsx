@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const OurSolutions = () => {
   return (
@@ -7,13 +8,16 @@ const OurSolutions = () => {
       <header className="bg-background-light dark:bg-background-dark shadow-md sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex-shrink-0">
-              <img
-                src="/logo1.png"
-                alt="Prime Sales Logo"
-                className="h-8 w-auto"
-              />
-            </div>
+            <Link to="/home">
+              <div className="flex-shrink-0">
+                <img
+                  src="/logo1.png"
+                  alt="Prime Sales Logo"
+                  className="h-8 w-auto"
+                />
+              </div>
+            </Link>
+
             <nav className="hidden md:flex items-center space-x-8">
               <a
                 href="#"
