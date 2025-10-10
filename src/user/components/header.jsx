@@ -17,7 +17,7 @@ const Header = () => {
   }, [dark]);
 
   return (
-    <header className="flex items-center border-b   border-background-light/20 dark:border-background-dark/20 px-10 py-3 relative">
+    <header className="flex items-center border-b   border-background-light/20 dark:border-background-dark/20 px-4 py-3 relative">
       {/* Dark Mode Toggle */}
       <div
         className={`absolute top-4 right-4 flex items-center justify-between w-12 h-6 p-1 rounded-full cursor-pointer transition-colors duration-300 ${
