@@ -88,8 +88,8 @@ const OurSolutions = () => {
               desc: "Ensure a secure working environment with our comprehensive safety systems and training.",
             },
             {
-              title: "Logistics Consulting",
-              img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCFNmzjM-qrG3s70f6DdhJBvKk9LcEpKzSJYOTclxHfu5p_OOz-lTpFwSeGpEcKogJZ5CQzKZXr1qL3pxUihf-iFFUC0H1SVCEh4GvteZIYQ5b1KIn8sitR9MYF_V_hwMeDnUQB2CW6YPtjGqEYIDPulFaScw-d6yNaeIVyGLcR62CxYwHWJ5DH5_ByABtme_7inffoAemyWi1d_0gSmUwTfNz7xlf6-yRncUj_FyZzdsNMyZvmh2NKlX3xjtwBUl2j3NdjtDAUAjE",
+              title: "Industrial Doors",
+              img: "https://media.istockphoto.com/id/595161836/photo/shutter-door-night.jpg?s=612x612&w=0&k=20&c=_Bz2bADjkMb35UbKQm573Hd4lVIwKRlykXJ0opVBh8o=",
               desc: "Expert consulting to analyze and improve your entire intralogistics workflow for maximum efficiency.",
             },
           ].map((solution, i) => (
