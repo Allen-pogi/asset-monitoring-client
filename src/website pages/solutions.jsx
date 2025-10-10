@@ -87,6 +87,12 @@ const OurSolutions = () => {
               img: "https://image.made-in-china.com/202f0j00RWMoTsEKbUqA/Vertical-Lifting-up-Industrial-Overhead-Panel-Door.webp",
               desc: "Ensure a secure working environment with our comprehensive safety systems and training.",
             },
+
+            {
+              title: "Material Handling Equipment",
+              img: "https://imrnrwxhkjji5o.leadongcdn.com/cloud/qjBqqKRrkSjlrrirlkr/qh-1515_kantuwang.jpg",
+              desc: "High-performance forklifts designed for reliability and efficiency in various industrial applications.",
+            },
             {
               title: "Industrial Doors",
               img: "https://media.istockphoto.com/id/595161836/photo/shutter-door-night.jpg?s=612x612&w=0&k=20&c=_Bz2bADjkMb35UbKQm573Hd4lVIwKRlykXJ0opVBh8o=",
