@@ -63,7 +63,7 @@ const OurSolutions = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
-              title: "Forklifts",
+              title: "Material Handling Equipment",
               img: "https://lh3.googleusercontent.com/aida-public/AB6AXuATOnPlS6_h1gQHBxebXeHQ65NaJbuzE9WWEXhMj-Inc5ncODptXaj4QDgF05LEJ0dN609FyDQlQU05aLKlgvZLEzLe5-U3ECLktbo-1YTIezHRFW1nmWF8b2yh6yGvYMdh03-XSWDrv1Gg16SVcP79LEDxIjZW89lu3ApyXieFFh1a5VOTDs93reQVwD45DJ5jZPFNXyGxrjGC8NYZIthDrUmTDhYHvQW-oV_yrkA1huasJYkPmjp9aQhoDtN5qOm9WcpM9Xk6dkE",
               desc: "High-performance forklifts designed for reliability and efficiency in various industrial applications.",
             },
