@@ -20,7 +20,7 @@ const LandingPage = () => {
               muted
               playsInline
             >
-              <source src="/bg.mp4" type="video/mp4" />
+              <source src="/bg1.mp4" type="video/mp4" />
             </video>
 
             {/* Gradient overlay for light mode */}
