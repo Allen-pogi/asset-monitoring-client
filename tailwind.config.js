@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: "class", // <--- enable dark mode
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -17,6 +17,20 @@ module.exports = {
         lg: "0.5rem",
         xl: "0.75rem",
         full: "9999px",
+      },
+      keyframes: {
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
+      animation: {
+        fadeInUp: "fadeInUp 1s ease-out forwards",
+        fadeIn: "fadeIn 1.2s ease-out forwards",
       },
     },
   },
