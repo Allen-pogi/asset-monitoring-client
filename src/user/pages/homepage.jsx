@@ -11,22 +11,37 @@ const LandingPage = () => {
         {/* Hero Section */}
         <div className="relative flex min-h-[60vh] md:min-h-[70vh] items-center justify-center text-center overflow-hidden">
           {/* Light Mode Background */}
-          <div
-            className="absolute inset-0 bg-cover bg-center dark:hidden"
-            style={{
-              backgroundImage:
-                'linear-gradient(to top, rgba(246,247,248,1) 0%, rgba(246,247,248,0) 40%), url("https://png.pngtree.com/thumb_back/fh260/background/20230625/pngtree-factory-scene-3d-rendered-forklift-trucks-image_3680965.jpg")',
-            }}
-          ></div>
+          {/* Light Mode Background */}
+          <div className="absolute inset-0 overflow-hidden dark:hidden">
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/bg.mp4" type="video/mp4" />
+            </video>
+
+            {/* Gradient overlay for light mode */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f6f7f8] via-[#f6f7f8]/10 to-transparent"></div>
+          </div>
 
           {/* Dark Mode Background */}
-          <div
-            className="absolute inset-0 bg-cover bg-center hidden dark:block"
-            style={{
-              backgroundImage:
-                'linear-gradient(to top, rgba(16,25,34,1) 0%, rgba(16,25,34,0) 50%), url("https://png.pngtree.com/thumb_back/fh260/background/20230625/pngtree-factory-scene-3d-rendered-forklift-trucks-image_3680965.jpg")',
-            }}
-          ></div>
+          <div className="absolute inset-0 overflow-hidden hidden dark:block">
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/bg.mp4" type="video/mp4" />
+            </video>
+
+            {/* Gradient overlay for dark mode */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#101922] via-[#101922]/60 to-transparent"></div>
+          </div>
 
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-white">
