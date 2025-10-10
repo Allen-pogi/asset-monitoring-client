@@ -16,8 +16,9 @@ import RegisterAdmin from "./admin/pages/register";
 import HybridQRScanner from "./scanner";
 import CameraTest from "./cameraTest";
 import { Toaster } from "react-hot-toast";
-import Home from "./Home";
+import Home from "./website pages/Home";
 import Forklift3D from "./forklift3d";
+import OurSolutions from "./website pages/solutions";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/admin/register" element={<RegisterAdmin />} />
         <Route path="/scanner" element={<HybridQRScanner />} />
-        <Route path="/forklift" element={<Forklift3D />} />
+        <Route path="/solutions" element={<OurSolutions />} />
         <Route
           path="/scanner"
           element={
