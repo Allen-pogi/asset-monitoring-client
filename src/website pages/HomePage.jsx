@@ -81,12 +81,15 @@ const WebsiteMain = () => {
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-white">
             <h1 className="font-serif text-white text-4xl lg:text-6xl font-normal tracking-tight mb-8 opacity-0 animate-fadeInUp">
-              Welcome to <span className="text-green-500">Prime Sales</span>
+              Prime <span className="text-green-500"> Sales</span>
             </h1>
             <p className="mt-6 font-sans font-light leading-relaxed max-w-2xl mx-auto text-lg  text-gray-300 opacity-0 animate-fadeInUp [animation-delay:0.3s]">
-              Manage your inventory and assets efficiently with our
-              comprehensive system. Track, monitor, and optimize your resources
-              in real-time.
+              Prime Sales Inc. (PSI) is a Philippine company founded in 1976
+              that supplies intralogistics solutions for the dry and cold chain
+              industries. It partners with global manufacturers to provide
+              services like warehouse design, storage systems, and after-sales
+              support, focusing on optimizing supply chains and logistics
+              operations for its clients.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
@@ -260,7 +263,7 @@ const WebsiteMain = () => {
           </div>
           <div className="mt-8 md:order-1 md:mt-0">
             <p className="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
-              © 2025 AssetTrack. All rights reserved.
+              © 2025 Prime Sales. All rights reserved.
             </p>
           </div>
         </div>
