@@ -91,7 +91,7 @@ const WebsiteMain = () => {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 to="/register"
-                className="rounded-lg bg-primary px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="rounded-lg bg-green-500 px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-green-500/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Get Started
               </Link>
@@ -109,11 +109,11 @@ const WebsiteMain = () => {
         <div className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="text-center">
-              <h2 className="text-base font-serif  font-semibold leading-relaxed text-green-500">
-                All about Prime Sales
-              </h2>
+              {/* <h2 className="text-base font-serif  font-semibold leading-relaxed text-white">
+                All about <span className="text-green-500">Prime Sales</span>
+              </h2> */}
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                Our Story
+                Our <span className="text-green-500">Story</span>
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
                 Prime Sales Inc. (PSI) founded in 1976, is a leading supplier of
@@ -140,7 +140,7 @@ const WebsiteMain = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Founding Evolution
+                  Founding <span className="text-green-500">Evolution </span>
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Established in 1976, the company has over 40 years of
@@ -165,11 +165,14 @@ const WebsiteMain = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Asset Tracking
+                  Key <span className="text-green-500">Services</span>
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Track the location and status of your assets in real-time,
-                  ensuring accountability and reducing loss.
+                  PSI provides intelligent intralogistics solutions, which
+                  include the design and implementation of advanced storage
+                  systems and materials handling equipment. It works with
+                  partners to offer high-performance solutions for both dry and
+                  cold chain environments.
                 </p>
               </div>
 
@@ -187,11 +190,14 @@ const WebsiteMain = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Reporting & Analytics
+                  Busuiness <span className="text-green-500">Model</span>
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Generate comprehensive reports and analytics to gain insights
-                  into your inventory and asset performance.
+                  The company works in synergy with global partners to provide
+                  efficient and reliable supply chain solutions within the
+                  Philippines. It emphasizes a customer-centric approach,
+                  focusing on providing solutions tailored to each client's
+                  needs and maintaining strong after-sales relationships.
                 </p>
               </div>
 
@@ -209,11 +215,13 @@ const WebsiteMain = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Security & Access Control
+                  Company <span className="text-green-500">Philosophy</span>
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Control access to sensitive information and ensure the
-                  security of your data with robust access control features.
+                  PSI has a history of viewing change positively, adapting to
+                  industry shifts as opportunities for improvement and growth.
+                  This adaptability is reflected in their continuous development
+                  of their salesforce and overall strategy.
                 </p>
               </div>
             </div>
