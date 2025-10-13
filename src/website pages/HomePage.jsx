@@ -275,21 +275,23 @@ const WebsiteMain = () => {
                 </p>
               </div>
             </div>
-            <div className="text-center">
-              {/* <h2 className="text-base font-serif  font-semibold leading-relaxed text-white">
+            <div>
+              <div className="text-center">
+                {/* <h2 className="text-base font-serif  font-semibold leading-relaxed text-white">
                 All about <span className="text-green-500">Prime Sales</span>
               </h2> */}
-              <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                Our <span className="text-green-500">Story</span>
-              </p>
-              <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-                Prime Sales Inc. (PSI) founded in 1976, is a leading supplier of
-                intelligent intralogistics solution for dry and cold chain
-                applications. Exemplifying remarkable reputation for more than
-                40 years in the industry, PSI works in synergy with proven
-                global partners to offer strong and efficient supply chain
-                solutions in the Philippines.
-              </p>
+                <p className="mt-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+                  Our <span className="text-green-500">Mission</span>
+                </p>
+                <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
+                  Prime Sales Inc. (PSI) founded in 1976, is a leading supplier
+                  of intelligent intralogistics solution for dry and cold chain
+                  applications. Exemplifying remarkable reputation for more than
+                  40 years in the industry, PSI works in synergy with proven
+                  global partners to offer strong and efficient supply chain
+                  solutions in the Philippines.
+                </p>
+              </div>
             </div>
           </div>
         </div>
