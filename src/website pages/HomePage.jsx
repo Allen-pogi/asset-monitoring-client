@@ -143,8 +143,11 @@ const WebsiteMain = () => {
                   Founding Evolution
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Maintain a detailed record of all your inventory items,
-                  including quantities, locations, and values.
+                  Established in 1976, the company has over 40 years of
+                  experience in the industry. In 1986, it began offering premium
+                  storage solutions like racking systems, and its services have
+                  expanded over the years to include consultation, safety
+                  inspections, repairs, and system expansions.
                 </p>
               </div>
 
