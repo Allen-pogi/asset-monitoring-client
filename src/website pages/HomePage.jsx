@@ -275,8 +275,8 @@ const WebsiteMain = () => {
                 </p>
               </div>
             </div>
-            <div className="flex w-full grid-cols-1 md:grid-cols-2 mt-8 ">
-              <div className="text-center border border-primary/20 dark:border-primary/30">
+            <div className="flex w-full grid-cols-1 md:grid-cols-2 mt-8 gap-8 ">
+              <div className="text-center border border-primary/20 dark:border-primary/30 rounded-lg">
                 {/* <h2 className="text-base font-serif  font-semibold leading-relaxed text-white">
                 All about <span className="text-green-500">Prime Sales</span>
               </h2> */}
