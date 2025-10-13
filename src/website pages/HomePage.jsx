@@ -292,7 +292,7 @@ const WebsiteMain = () => {
                   solutions in the Philippines.
                 </p>
               </div>
-              <div className="text-center border">
+              <div className="text-center border border-primary/20 dark:border-primary/30 rounded-lg">
                 {/* <h2 className="text-base font-serif  font-semibold leading-relaxed text-white">
                 All about <span className="text-green-500">Prime Sales</span>
               </h2> */}
