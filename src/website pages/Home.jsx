@@ -29,7 +29,7 @@ export default function Home() {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-8 text-white/90 font-sans text-sm font-light">
+          {/* <div className="flex items-center gap-8 text-white/90 font-sans text-sm font-light">
             <a
               href="#"
               className="hover:text-white hover:scale-105 transition-all duration-300"
@@ -52,7 +52,7 @@ export default function Home() {
               EN
               <ChevronDown size={14} />
             </button>
-          </div>
+          </div> */}
         </div>
       </nav>
 
@@ -73,7 +73,7 @@ export default function Home() {
             </p>
             <Link to="/solutions">
               <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white font-sans font-medium px-6 py-3 rounded-lg text-base hover:bg-white/20 hover:scale-105 hover:shadow-lg transition-all duration-300 opacity-0 animate-fadeInUp [animation-delay:0.6s]">
-                View Our Solutions
+                Get Started
               </button>
             </Link>
           </div>
