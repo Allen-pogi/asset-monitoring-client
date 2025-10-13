@@ -60,6 +60,12 @@ const WebsiteMain = () => {
               href="#"
               className="hover:text-white hover:scale-105 transition-all duration-300"
             >
+              Services
+            </a>
+            <a
+              href="#"
+              className="hover:text-white hover:scale-105 transition-all duration-300"
+            >
               Support Us
             </a>
             <a
