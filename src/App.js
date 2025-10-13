@@ -19,22 +19,28 @@ import { Toaster } from "react-hot-toast";
 import Home from "./website pages/Home";
 import Forklift3D from "./forklift3d";
 import OurSolutions from "./website pages/solutions";
+import WebsiteMain from "./website pages/HomePage";
 
 function App() {
   return (
     <Router>
       <Toaster position="top-right" /> {/* Add this once, globally */}
       <Routes>
+        {/* Website Routes */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/solutions" element={<OurSolutions />} />
+        <Route path="/main" element={<WebsiteMain />} />
+
         {/* Public routes */}
         <Route path="/cam" element={<CameraTest />} />
-        <Route path="/home" element={<Home />} />
+
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/admin/register" element={<RegisterAdmin />} />
         <Route path="/scanner" element={<HybridQRScanner />} />
-        <Route path="/solutions" element={<OurSolutions />} />
+
         <Route
           path="/scanner"
           element={
