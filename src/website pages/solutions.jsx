@@ -29,7 +29,19 @@ const OurSolutions = () => {
                 href="#"
                 className="text-sm font-medium text-text-secondary-light hover:text-primary dark:text-text-secondary-dark dark:hover:text-primary"
               >
+                About Us
+              </a>
+              <a
+                href="#"
+                className="text-sm font-medium text-text-secondary-light hover:text-primary dark:text-text-secondary-dark dark:hover:text-primary"
+              >
                 Support Us
+              </a>
+              <a
+                href="#"
+                className="text-sm font-medium text-text-secondary-light hover:text-primary dark:text-text-secondary-dark dark:hover:text-primary"
+              >
+                Contact
               </a>
               <a
                 href="#"
