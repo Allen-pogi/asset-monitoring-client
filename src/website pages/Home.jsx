@@ -71,7 +71,7 @@ export default function Home() {
               racking systems — that move your business forward with strength
               and precision.
             </p>
-            <Link to="/solutions">
+            <Link to="/main">
               <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white font-sans font-medium px-6 py-3 rounded-lg text-base hover:bg-white/20 hover:scale-105 hover:shadow-lg transition-all duration-300 opacity-0 animate-fadeInUp [animation-delay:0.6s]">
                 Get Started
               </button>
