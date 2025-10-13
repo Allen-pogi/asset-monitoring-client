@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../user/components/header";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { ChevronDown } from "lucide-react";
 
 const WebsiteMain = () => {
   const [dark, setDark] = useState(() => {
@@ -48,7 +49,7 @@ const WebsiteMain = () => {
             ></div>
           </div>
           {/* Navigation Links */}
-          {/* <div className="flex items-center gap-8 text-white/90 font-sans text-sm font-light">
+          <div className="flex items-center gap-8 text-white/90 font-sans text-sm font-light">
             <a
               href="#"
               className="hover:text-white hover:scale-105 transition-all duration-300"
@@ -71,7 +72,7 @@ const WebsiteMain = () => {
               EN
               <ChevronDown size={14} />
             </button>
-          </div> */}
+          </div>
         </div>
       </nav>
 
