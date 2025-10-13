@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../user/components/header";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const WebsiteMain = () => {
+  const [dark, setDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("darkMode") === "true";
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", dark);
+    if (dark) document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
+  }, [dark]);
   return (
     <div className="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 min-h-screen flex flex-col">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/10 backdrop-blur-sm py-4 px-6">
@@ -12,7 +25,28 @@ const WebsiteMain = () => {
           <div className="text-white font-serif text-xl flex items-center">
             <img src="/logo1.png" alt="" className="h-8 w-16" />
           </div>
-
+          <div
+            className={`absolute top-4 right-4 flex items-center justify-between w-12 h-6 p-1 rounded-full cursor-pointer transition-colors duration-300 ${
+              dark ? "bg-gray-800" : "bg-gray-800"
+            }`}
+            onClick={() => setDark(!dark)}
+          >
+            <FaMoon
+              className={`text-yellow-300 ${
+                dark ? "opacity-100" : "opacity-50"
+              } transition-opacity duration-300`}
+            />
+            <FaSun
+              className={`text-yellow-400 ${
+                dark ? "opacity-50" : "opacity-100"
+              } transition-opacity duration-300`}
+            />
+            <div
+              className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
+                dark ? "translate-x-6" : "translate-x-0"
+              }`}
+            ></div>
+          </div>
           {/* Navigation Links */}
           {/* <div className="flex items-center gap-8 text-white/90 font-sans text-sm font-light">
             <a
@@ -59,7 +93,7 @@ const WebsiteMain = () => {
             </video>
 
             {/* Gradient overlay for light mode */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#f6f7f8] via-[#f6f7f8]/10 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f6f7f8] via-[#f6f7f8]/0 to-transparent"></div>
           </div>
 
           {/* Dark Mode Background */}
@@ -109,7 +143,7 @@ const WebsiteMain = () => {
         </div>
 
         {/* Features Section */}
-        <div className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="px-4 py-16 sm:px-6 sm:py-0  lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="text-center">
               {/* <h2 className="text-base font-serif  font-semibold leading-relaxed text-white">
@@ -233,7 +267,7 @@ const WebsiteMain = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-primary/20 dark:border-primary/30">
+      <footer className="border-t mt-8 border-primary/20 dark:border-primary/30">
         <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
           <div className="flex justify-center space-x-6 md:order-2">
             <a
