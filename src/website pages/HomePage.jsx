@@ -94,7 +94,8 @@ const WebsiteMain = () => {
         <div className="relative flex min-h-[60vh] md:min-h-[70vh] items-center justify-center text-center overflow-hidden">
           {/* Light Mode Background */}
           {/* Light Mode Background */}
-          <div className="absolute inset-0 overflow-hidden dark:hidden">
+          {/* Shared Background Video (no restart when toggling theme) */}
+          <div className="absolute inset-0 overflow-hidden">
             <video
               className="w-full h-full object-cover"
               autoPlay
@@ -102,27 +103,17 @@ const WebsiteMain = () => {
               muted
               playsInline
             >
-              <source src="/bg1.mp4" type="video/mp4" />
+              <source src={dark ? "/bg.mp4" : "/bg1.mp4"} type="video/mp4" />
             </video>
 
-            {/* Gradient overlay for light mode */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#f6f7f8] via-[#f6f7f8]/0 to-transparent"></div>
-          </div>
-
-          {/* Dark Mode Background */}
-          <div className="absolute inset-0 overflow-hidden hidden dark:block">
-            <video
-              className="w-full h-full object-cover"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/bg.mp4" type="video/mp4" />
-            </video>
-
-            {/* Gradient overlay for dark mode */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#101922] via-[#101922]/60 to-transparent"></div>
+            {/* Bottom Gradient Fade Overlay */}
+            <div
+              className={`absolute bottom-0 left-0 right-0 h-[40%] transition-all duration-700 ${
+                dark
+                  ? "bg-gradient-to-t from-[#101922] via-[#101922]/60 to-transparent"
+                  : "bg-gradient-to-t from-[#f6f7f8] via-[#f6f7f8]/60 to-transparent"
+              }`}
+            ></div>
           </div>
 
           {/* Content */}
